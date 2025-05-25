@@ -3,99 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中考志愿辅助分析工具</title>
+    <title>中考志愿辅助分析工具 - 可视化版</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* 淡雅的背景色 */
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* 淡雅渐变背景 */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* 顶部对齐，允许滚动 */
+            min-height: 100vh;
+            padding: 2rem 1rem; /* 增加一些边距，尤其在小屏幕上 */
+            box-sizing: border-box;
         }
         .container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
+            width: 100%;
+            max-width: 700px; /* 稍微加宽容器 */
             background-color: white;
-            border-radius: 12px; /* 更大的圆角 */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* 更柔和的阴影 */
+            border-radius: 16px; /* 更大的圆角 */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* 更显著的阴影 */
+            padding: 2.5rem; /* 增加内边距 */
+            transition: all 0.3s ease-out;
         }
         .title {
-            font-size: 1.75rem; /* 标题字号调整 */
+            font-size: 2rem; /* 标题字号加大 */
             font-weight: 700;
-            color: #2c3e50; /* 深蓝灰色 */
-            margin-bottom: 1.5rem;
+            color: #1a2b48; /* 更深的蓝黑色 */
+            margin-bottom: 2rem;
             text-align: center;
         }
         .input-label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-weight: 600;
-            color: #34495e; /* 蓝灰色 */
+            color: #34495e;
+            font-size: 0.9rem;
         }
         .input-field {
             width: 100%;
-            padding: 0.75rem 1rem; /* 输入框内边距调整 */
-            border: 1px solid #bdc3c7; /* 边框颜色 */
-            border-radius: 8px; /* 输入框圆角 */
+            padding: 0.875rem 1.25rem; /* 输入框内边距调整 */
+            border: 1px solid #d1d5db; /* 边框颜色调整 */
+            border-radius: 10px; /* 输入框圆角 */
             box-sizing: border-box;
             margin-bottom: 1.5rem;
             font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .input-field:focus {
             outline: none;
-            border-color: #3498db; /* 焦点时边框颜色 */
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            border-color: #3b82f6; /* 焦点时边框颜色 (Tailwind blue-500) */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
         .analyze-button {
             width: 100%;
-            padding: 0.875rem 1rem; /* 按钮内边距调整 */
-            background-color: #3498db; /* 主题蓝色 */
+            padding: 1rem 1.25rem;
+            background-image: linear-gradient(to right, #3b82f6 0%, #2563eb 51%, #3b82f6 100%); /* 渐变按钮背景 */
+            background-size: 200% auto;
             color: white;
             font-weight: 600;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 1.1rem; /* 按钮字号调整 */
+            transition: background-position 0.5s ease, transform 0.1s ease;
+            font-size: 1.1rem;
+            text-transform: uppercase; /* 按钮文字大写 */
+            letter-spacing: 0.5px; /* 轻微字间距 */
         }
         .analyze-button:hover {
-            background-color: #2980b9; /* 悬停时颜色加深 */
+            background-position: right center; /* 改变渐变方向以产生动画 */
+            transform: translateY(-2px); /* 轻微上浮效果 */
         }
-        .results-area {
-            margin-top: 2rem;
+        .analyze-button:active {
+            transform: translateY(0px);
+        }
+
+        .results-container { /* 新增一个包裹结果和图表的容器 */
+            margin-top: 2.5rem;
+        }
+
+        .chart-container {
+            margin-bottom: 2rem;
             padding: 1.5rem;
-            background-color: #ecf0f1; /* 结果区背景色 */
-            border-radius: 8px;
-            border: 1px solid #dde1e2;
+            background-color: #f9fafb; /* 图表区域背景色 */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
-        .results-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 1rem;
+        #scoreChart {
+            width: 100% !important; /* 确保图表宽度正确 */
+            height: auto !important; /* 高度自适应 */
+            max-height: 200px; /* 限制图表最大高度 */
         }
-        .result-item {
-            margin-bottom: 0.75rem;
-            padding: 0.75rem;
+
+        .results-area {
+            display: grid; /* 使用Grid布局 */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 响应式列 */
+            gap: 1.5rem; /* 卡片间距 */
+        }
+        .result-card { /* 替代 .result-item */
+            padding: 1.5rem;
             background-color: #ffffff;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            border: 1px solid #e5e7eb; /* 卡片边框 */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .result-item strong {
-            color: #3498db;
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
         }
+        .result-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937; /* 深灰色 */
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        .result-card-content {
+            font-size: 1rem;
+            color: #4b5563; /* 中灰色 */
+        }
+        .result-card-content strong { /* 志愿学校名称高亮 */
+            color: #1d4ed8; /* 深蓝色 */
+            font-weight: 600;
+        }
+
         .message-box {
-            margin-top: 1rem;
-            padding: 0.75rem;
-            border-radius: 6px;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
             text-align: center;
+            font-weight: 500;
         }
         .message-box.error {
-            background-color: #e74c3c;
-            color: white;
+            background-color: #fee2e2; /* Tailwind red-100 */
+            color: #b91c1c; /* Tailwind red-700 */
+            border: 1px solid #fecaca; /* Tailwind red-200 */
         }
         .message-box.info {
-            background-color: #f1c40f;
-            color: #333;
+            background-color: #fef3c7; /* Tailwind yellow-100 */
+            color: #92400e; /* Tailwind yellow-700 */
+            border: 1px solid #fde68a; /* Tailwind yellow-200 */
         }
     </style>
 </head>
@@ -104,47 +153,60 @@
         <h1 class="title">中考志愿辅助分析工具</h1>
 
         <div>
-            <label for="scoreRate" class="input-label">请输入您的得分率 (%)：</label>
-            <input type="number" id="scoreRate" class="input-field" placeholder="例如: 92.5">
+            <label for="scoreRate" class="input-label">请输入您的总得分率 (%)：</label>
+            <input type="number" id="scoreRate" class="input-field" placeholder="例如: 92.50" step="0.01">
         </div>
 
-        <button id="analyzeButton" class="analyze-button">开始分析</button>
+        <button id="analyzeButton" class="analyze-button">智能分析志愿</button>
 
-        <div id="resultsArea" class="results-area" style="display: none;">
-            <h2 class="results-title">分析结果：</h2>
-            <div id="firstChoiceResult" class="result-item"></div>
-            <div id="secondChoiceResult" class="result-item"></div>
+        <div class="results-container" id="resultsContainer" style="display: none;">
+            <div class="chart-container">
+                <canvas id="scoreChart"></canvas>
+            </div>
+
+            <div class="results-area">
+                <div id="firstChoiceCard" class="result-card">
+                    <h3 class="result-card-title">第一志愿建议</h3>
+                    <p id="firstChoiceResult" class="result-card-content"></p>
+                </div>
+                <div id="secondChoiceCard" class="result-card">
+                    <h3 class="result-card-title">第二志愿建议</h3>
+                    <p id="secondChoiceResult" class="result-card-content"></p>
+                </div>
+            </div>
         </div>
         <div id="messageBox" class="message-box" style="display: none;"></div>
     </div>
 
     <script>
         // 学校录取数据模型 (基于图片信息简化和推断)
-        // 实际应用中，这些数据应从CSV文件（如 录取学校分析.csv）导入和处理
         // minRate: 最低得分率要求。 tiers应该从高到低排序。
+        // color: 用于图表显示的颜色
+        // label: 用于图表或文字描述的档次标签
         const schoolTiers = [
-            { minRate: 93.6, firstChoice: "东莞中学", secondChoice: "东莞第一中学" },
-            { minRate: 92.8, firstChoice: "东莞中学", secondChoice: "东莞外国语学校" },
-            { minRate: 92.1, firstChoice: "东莞中学松山湖学校", secondChoice: "东莞高级中学" }, // 结合92.5和92.22
-            { minRate: 90.0, firstChoice: "东莞外国语学校", secondChoice: "常平中学" },
-            { minRate: 88.0, firstChoice: "常平中学", secondChoice: "常平中学 (或 市第六高级中学)" }, // 结合多个88%左右的数据点
-            { minRate: 85.5, firstChoice: "市第二高级中学", secondChoice: "市第八高级中学" }, // 结合85.98和85.63
-            { minRate: 82.0, firstChoice: "市第十高级中学", secondChoice: "市第四高级中学" },
-            // 可以根据需要添加更多层级
-            { minRate: 0, firstChoice: "建议寻求专业指导", secondChoice: "请参考更多信息综合判断" } // 保底建议
+            { minRate: 93.6, firstChoice: "东莞中学", secondChoice: "东莞第一中学", color: "#22c55e", label: "顶尖水平" }, // Tailwind green-500
+            { minRate: 92.8, firstChoice: "东莞中学", secondChoice: "东莞外国语学校", color: "#3b82f6", label: "优秀水平" }, // Tailwind blue-500
+            { minRate: 92.1, firstChoice: "东莞中学松山湖学校", secondChoice: "东莞高级中学", color: "#6366f1", label: "良好水平" }, // Tailwind indigo-500
+            { minRate: 90.0, firstChoice: "东莞外国语学校", secondChoice: "常平中学", color: "#eab308", label: "中上水平" }, // Tailwind yellow-500
+            { minRate: 88.0, firstChoice: "常平中学", secondChoice: "常平中学 (或 市第六高级中学)", color: "#f97316", label: "中等水平" }, // Tailwind orange-500
+            { minRate: 85.5, firstChoice: "市第二高级中学", secondChoice: "市第八高级中学", color: "#ef4444", label: "中下水平" }, // Tailwind red-500
+            { minRate: 82.0, firstChoice: "市第十高级中学", secondChoice: "市第四高级中学", color: "#dc2626", label: "有待提高" }, // Tailwind red-600
+            { minRate: 0, firstChoice: "建议寻求专业指导", secondChoice: "请参考更多信息综合判断", color: "#6b7280", label: "数据不足或需专业评估" } // Tailwind gray-500
         ];
 
         const analyzeButton = document.getElementById('analyzeButton');
         const scoreRateInput = document.getElementById('scoreRate');
-        const resultsArea = document.getElementById('resultsArea');
+        const resultsContainer = document.getElementById('resultsContainer'); // 包裹图表和结果卡片
         const firstChoiceResult = document.getElementById('firstChoiceResult');
         const secondChoiceResult = document.getElementById('secondChoiceResult');
         const messageBox = document.getElementById('messageBox');
+        const chartCanvas = document.getElementById('scoreChart');
+        let scoreChartInstance = null; // 用于存储Chart实例
 
         analyzeButton.addEventListener('click', () => {
             const scoreRateText = scoreRateInput.value;
-            messageBox.style.display = 'none'; // 先隐藏消息框
-            resultsArea.style.display = 'none'; // 先隐藏结果区
+            messageBox.style.display = 'none';
+            resultsContainer.style.display = 'none';
 
             if (scoreRateText === '') {
                 showMessage('请输入得分率后再分析。', 'error');
@@ -158,35 +220,116 @@
                 return;
             }
 
-            let foundSchool = false;
-            // 从高分往低分档次查找匹配
+            let matchedTier = null;
             for (const tier of schoolTiers) {
                 if (scoreRate >= tier.minRate) {
-                    firstChoiceResult.innerHTML = `<strong>第一志愿建议：</strong> ${tier.firstChoice}`;
-                    secondChoiceResult.innerHTML = `<strong>第二志愿建议：</strong> ${tier.secondChoice}`;
-                    resultsArea.style.display = 'block';
-                    foundSchool = true;
-                    break; // 找到合适的档次后即停止
+                    matchedTier = tier;
+                    break;
                 }
             }
-
-            if (!foundSchool) {
-                // 理论上会匹配到 minRate: 0 的保底建议，但以防万一
-                showMessage('未能根据当前数据找到匹配的学校建议，请咨询老师。', 'info');
+            
+            // 如果没有匹配到（理论上会匹配到 minRate: 0 的保底），则使用保底
+            if (!matchedTier) {
+                 matchedTier = schoolTiers[schoolTiers.length - 1];
             }
+
+            firstChoiceResult.innerHTML = `<strong>${matchedTier.firstChoice}</strong>`;
+            secondChoiceResult.innerHTML = `<strong>${matchedTier.secondChoice}</strong>`;
+            
+            resultsContainer.style.display = 'block'; // 显示结果和图表容器
+            updateChart(scoreRate, matchedTier);
         });
+
+        function updateChart(userScore, tier) {
+            const chartData = {
+                labels: ['您的得分率'],
+                datasets: [{
+                    label: `得分率 (${tier.label})`,
+                    data: [userScore],
+                    backgroundColor: [tier.color],
+                    borderColor: [Chart.helpers.color(tier.color).darken(0.2).rgbString()], // 边框颜色稍深
+                    borderWidth: 2,
+                    borderRadius: 5, // 条形图圆角
+                    barPercentage: 0.5, // 条形图宽度
+                    categoryPercentage: 0.5
+                }]
+            };
+
+            const chartOptions = {
+                indexAxis: 'y', // 水平条形图
+                responsive: true,
+                maintainAspectRatio: false, // 允许自定义宽高比
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100, // X轴最大值为100
+                        title: {
+                            display: true,
+                            text: '得分率 (%)',
+                            font: { size: 14, weight: '500' },
+                            color: '#4b5563'
+                        },
+                        grid: {
+                            color: '#e5e7eb' // 网格线颜色
+                        },
+                        ticks: {
+                           color: '#4b5563'
+                        }
+                    },
+                    y: {
+                       grid: {
+                           display: false // 隐藏Y轴网格线
+                       },
+                       ticks: {
+                           color: '#4b5563',
+                           font: { size: 14 }
+                       }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            font: { size: 12 },
+                            color: '#374151'
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1f2937', // Tooltip 背景色
+                        titleFont: { size: 14, weight: 'bold' },
+                        bodyFont: { size: 12 },
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.formattedValue}%`;
+                            }
+                        }
+                    }
+                }
+            };
+
+            if (scoreChartInstance) {
+                scoreChartInstance.destroy(); // 销毁旧图表实例
+            }
+
+            scoreChartInstance = new Chart(chartCanvas, {
+                type: 'bar',
+                data: chartData,
+                options: chartOptions
+            });
+        }
 
         function showMessage(message, type) {
             messageBox.textContent = message;
-            messageBox.className = `message-box ${type}`; // 重置class并添加新的类型
+            messageBox.className = `message-box ${type}`;
             messageBox.style.display = 'block';
         }
 
-        // 允许回车键触发分析
         scoreRateInput.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                event.preventDefault(); // 阻止表单默认提交（如果在一个form里的话）
-                analyzeButton.click(); // 触发按钮点击
+                event.preventDefault();
+                analyzeButton.click();
             }
         });
     </script>
