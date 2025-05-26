@@ -445,7 +445,7 @@
     <div class="container">
         <div class="header">
             <h1>🎓 东莞中考分析工具</h1>
-            <p>专业的中考成绩分析与志愿填报指导</p>
+            <p>2025年十一大校扩容版 - 基于最新政策的智能升学分析系统</p>
         </div>
 
         <div class="main-content">
@@ -515,14 +515,33 @@
                 </div>
 
                 <div class="section">
-                    <h2>🏫 志愿填报建议</h2>
+                    <h2>🏫 十一大校推荐分析</h2>
+                    <p>根据您的成绩水平，为您推荐最适合的学校（含2025年新增三校）：</p>
+                    <div class="policy-notice" style="background:#e8f5e8;border-left:4px solid #27ae60;padding:10px;margin:10px 0;border-radius:5px;">
+                        <strong>🆕 2025年政策变化：</strong>
+                        <ul style="margin:5px 0;padding-left:20px;">
+                            <li>新增石龙中学、万江中学、常平中学为十一大校</li>
+                            <li>名额分配比例50%，户籍生可降分20-30分录取</li>
+                            <li>新增三校竞争压力相对较小，录取机会增加</li>
+                        </ul>
+                    </div>
                     <div class="school-recommendations" id="schoolRecommendations">
                         <!-- 学校推荐将在这里动态生成 -->
                     </div>
                 </div>
 
                 <div class="section">
-                    <h2>📋 历年录取数据参考</h2>
+                    <h2>🎯 名额分配策略分析</h2>
+                    <div class="quota-analysis" id="quotaAnalysis">
+                        <!-- 名额分配分析将在这里动态生成 -->
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>📋 2025年十一大校录取数据参考</h2>
+                    <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:10px;margin:10px 0;border-radius:5px;">
+                        <p><strong>💡 数据说明：</strong>以下为2024年录取分数线，2025年实际分数线可能有所调整，仅供参考。名额分配降分幅度：传统八大校20分，新增三校30分。</p>
+                    </div>
                     <table class="data-table" id="dataTable">
                         <!-- 数据表格将在这里动态生成 -->
                     </table>
@@ -549,7 +568,7 @@
     </div>
 
     <script>
-        // 东莞中考历年数据
+        // 东莞中考历年数据（2025年最新）
         const examData = {
             "九年级": {
                 "第二学期": {
@@ -568,32 +587,126 @@
             "八年级": {
                 "第二学期": {
                     "期末": { rate: 90.57, progress: 1.77, schools: ["东莞外国语学校", "常平中学"] },
-                    "期中": { rate: 88.80, progress: 0.45, schools: ["常平中学", "常平中学"] },
-                    "阶段二": { rate: 88.35, progress: 2.37, schools: ["常平中学", "常平中学"] },
-                    "阶段一": { rate: 85.98, progress: 0.35, schools: ["市第二高级中学", "市第八高级中学"] }
+                    "期中": { rate: 88.80, progress: 0.45, schools: ["常平中学", "万江中学"] },
+                    "阶段二": { rate: 88.35, progress: 2.37, schools: ["常平中学", "石龙中学"] },
+                    "阶段一": { rate: 85.98, progress: 0.35, schools: ["石龙中学", "万江中学"] }
                 },
                 "第一学期": {
-                    "12月考": { rate: 85.63, progress: -2.44, schools: ["市第二高级中学", "市第十三高级中学"] },
-                    "中段考": { rate: 88.07, progress: 5.61, schools: ["常平中学", "常平中学"] },
-                    "月考": { rate: 82.46, progress: 0, schools: ["市第十高级中学", "市第四高级中学"] }
+                    "12月考": { rate: 85.63, progress: -2.44, schools: ["万江中学", "常平中学"] },
+                    "中段考": { rate: 88.07, progress: 5.61, schools: ["常平中学", "石龙中学"] },
+                    "月考": { rate: 82.46, progress: 0, schools: ["石龙中学", "万江中学"] }
                 }
             }
         };
 
-        // 学校等级划分
+        // 2025年东莞十一大校数据
+        const elevenSchools = {
+            "东莞中学": {
+                level: "顶尖",
+                hujiScore: 736,
+                suiqianScore: 720,
+                rank: 1,
+                quota: 480,
+                features: ["百年名校", "重本率超90%", "科技创新与文化传承并重"]
+            },
+            "东莞中学松山湖学校": {
+                level: "顶尖",
+                hujiScore: 728,
+                suiqianScore: 737,
+                rank: 2,
+                quota: 624,
+                features: ["小班化教学", "与华为等企业合作", "特控率约90%"]
+            },
+            "松山湖未来学校": {
+                level: "顶尖",
+                hujiScore: 724,
+                suiqianScore: 737,
+                rank: 3,
+                quota: 349,
+                features: ["AI+教育模式", "智能化教学平台", "港澳班特色突出"]
+            },
+            "东莞市第一中学": {
+                level: "重点",
+                hujiScore: 717,
+                suiqianScore: 730,
+                rank: 4,
+                quota: 815,
+                features: ["艺术体育与科创教育突出", "重本率约80%", "国家级示范性高中"]
+            },
+            "东莞高级中学": {
+                level: "重点",
+                hujiScore: 711,
+                suiqianScore: 724,
+                rank: 5,
+                quota: 573,
+                features: ["创客教育领先", "心理健康教育特色", "本科上线率100%"]
+            },
+            "东莞实验中学": {
+                level: "重点",
+                hujiScore: 703,
+                suiqianScore: 719,
+                rank: 6,
+                quota: 774,
+                features: ["航空班", "学科竞赛强校", "理科竞赛成果显著"]
+            },
+            "东莞外国语学校": {
+                level: "重点",
+                hujiScore: 717,
+                suiqianScore: 725,
+                rank: 7,
+                quota: 503,
+                features: ["多语种课程", "国际化交流项目", "外语特色鲜明"]
+            },
+            "市第六高级中学": {
+                level: "优质",
+                hujiScore: 707,
+                suiqianScore: 718,
+                rank: 8,
+                quota: 719,
+                features: ["艺术教育标杆", "高考中进优出", "数理特色班成绩突出"]
+            },
+            "石龙中学": {
+                level: "优质",
+                hujiScore: 688,
+                suiqianScore: 714,
+                rank: 9,
+                quota: 507,
+                features: ["百年老校", "机器人项目国际获奖", "科技创新班成果显著"],
+                isNew: true
+            },
+            "常平中学": {
+                level: "优质",
+                hujiScore: 675,
+                suiqianScore: 708,
+                rank: 10,
+                quota: 922,
+                features: ["集团化办学标杆", "高考600分以上人数翻倍", "科技创新与篮球特色"],
+                isNew: true
+            },
+            "万江中学": {
+                level: "优质",
+                hujiScore: 674,
+                suiqianScore: 705,
+                rank: 11,
+                quota: 651,
+                features: ["食育与体育特色", "足球项目全市领先", "艺术特长生培养突出"],
+                isNew: true
+            }
+        };
+
+        // 学校等级划分（更新版）
         const schoolLevels = {
             "东莞中学": "顶尖",
             "东莞中学松山湖学校": "顶尖",
-            "东莞第一中学": "重点",
+            "松山湖未来学校": "顶尖",
+            "东莞市第一中学": "重点",
             "东莞高级中学": "重点",
+            "东莞实验中学": "重点",
             "东莞外国语学校": "重点",
             "市第六高级中学": "优质",
-            "市第二高级中学": "优质",
-            "市第八高级中学": "优质",
-            "市第十三高级中学": "普通",
-            "市第十高级中学": "普通",
-            "市第四高级中学": "普通",
-            "常平中学": "普通"
+            "石龙中学": "优质",
+            "常平中学": "优质",
+            "万江中学": "优质"
         };
 
         function analyzeScore() {
@@ -624,6 +737,9 @@
             // 生成学校推荐
             generateSchoolRecommendations(scoreRate);
 
+            // 生成名额分配分析
+            generateQuotaAnalysis(scoreRate);
+
             // 生成数据表格
             generateDataTable(grade, semester);
 
@@ -633,16 +749,20 @@
 
         function getRecommendedSchools(scoreRate) {
             const rate = parseFloat(scoreRate);
+            const estimatedScore = Math.round(rate * 8); // 假设满分800分
             let schools = [];
 
-            if (rate >= 93) {
-                schools = ["东莞中学", "东莞中学松山湖学校", "东莞第一中学", "东莞高级中学"];
-            } else if (rate >= 90) {
-                schools = ["东莞外国语学校", "东莞第一中学", "市第六高级中学", "常平中学"];
-            } else if (rate >= 85) {
-                schools = ["市第二高级中学", "市第八高级中学", "常平中学", "市第十三高级中学"];
+            // 根据2025年十一大校分数线推荐
+            if (estimatedScore >= 730) {
+                schools = ["东莞中学", "东莞中学松山湖学校", "松山湖未来学校", "东莞市第一中学"];
+            } else if (estimatedScore >= 710) {
+                schools = ["东莞高级中学", "东莞外国语学校", "东莞实验中学", "市第六高级中学"];
+            } else if (estimatedScore >= 680) {
+                schools = ["石龙中学", "常平中学", "万江中学", "市第六高级中学"];
+            } else if (estimatedScore >= 650) {
+                schools = ["常平中学", "万江中学", "石龙中学"];
             } else {
-                schools = ["市第十高级中学", "市第四高级中学", "常平中学"];
+                schools = ["万江中学", "常平中学"];
             }
 
             return schools;
@@ -651,61 +771,181 @@
         function generateSchoolRecommendations(scoreRate) {
             const schools = getRecommendedSchools(scoreRate);
             const container = document.getElementById('schoolRecommendations');
+            const estimatedScore = Math.round(parseFloat(scoreRate) * 8);
             container.innerHTML = '';
 
             schools.forEach((school, index) => {
+                const schoolData = elevenSchools[school];
+                if (!schoolData) return;
+
                 const probability = index === 0 ? 'high' : index === 1 ? 'medium' : 'low';
-                const probabilityText = index === 0 ? '录取概率高' : index === 1 ? '录取概率中等' : '保底选择';
-                const level = schoolLevels[school] || '普通';
+                let probabilityText = '';
+                let strategyText = '';
+                
+                // 根据分数差距计算录取概率
+                const scoreDiff = estimatedScore - schoolData.hujiScore;
+                if (scoreDiff >= 10) {
+                    probabilityText = '录取概率很高';
+                    strategyText = '稳妥选择，可作为保底志愿';
+                } else if (scoreDiff >= 0) {
+                    probabilityText = '录取概率较高';
+                    strategyText = '合适选择，建议重点考虑';
+                } else if (scoreDiff >= -20) {
+                    probabilityText = '录取概率中等';
+                    strategyText = schoolData.isNew ? '新增校，名额分配机会大' : '可冲刺，建议关注名额分配';
+                } else {
+                    probabilityText = '录取概率较低';
+                    strategyText = '冲刺目标，需要超常发挥';
+                }
+
+                const level = schoolData.level;
+                const features = schoolData.features.slice(0, 2).join('、');
+                const quotaInfo = schoolData.isNew ? `名额分配${schoolData.quota}人（新增校优势）` : `名额分配${schoolData.quota}人`;
 
                 const card = document.createElement('div');
                 card.className = 'school-card';
                 card.innerHTML = `
-                    <h4>${school}</h4>
+                    <h4>${school} <span style="font-size:0.8em;color:#666;">(排名第${schoolData.rank})</span></h4>
                     <div class="probability ${probability}">${probabilityText}</div>
                     <div class="school-info">
                         <p><strong>学校等级:</strong> ${level}<span class="school-level level-${level}">${level}</span></p>
-                        <p><strong>志愿建议:</strong> ${index === 0 ? '第一志愿推荐' : index === 1 ? '第二志愿推荐' : '保底志愿推荐'}</p>
-                        <p><strong>录取建议:</strong> ${index === 0 ? '冲刺目标，全力以赴' : index === 1 ? '稳妥选择，把握机会' : '安全保底，确保录取'}</p>
+                        <p><strong>录取分数:</strong> 户籍生${schoolData.hujiScore}分 / 随迁子女${schoolData.suiqianScore}分</p>
+                        <p><strong>学校特色:</strong> ${features}</p>
+                        <p><strong>名额分配:</strong> ${quotaInfo}</p>
+                        <p><strong>填报策略:</strong> ${strategyText}</p>
+                        ${schoolData.isNew ? '<p style="color:#e74c3c;font-weight:600;">🆕 2025年新增十一大校</p>' : ''}
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
+        function generateQuotaAnalysis(scoreRate) {
+            const container = document.getElementById('quotaAnalysis');
+            const estimatedScore = Math.round(parseFloat(scoreRate) * 8);
+            
+            // 找出适合名额分配的学校
+            const quotaSchools = [];
+            Object.entries(elevenSchools).forEach(([name, data]) => {
+                const scoreDiff = estimatedScore - data.hujiScore;
+                if (scoreDiff >= -30 && scoreDiff <= 10) {
+                    const quotaScore = data.hujiScore - (data.isNew ? 30 : 20); // 新增校降分更多
+                    quotaSchools.push({
+                        name,
+                        ...data,
+                        quotaScore,
+                        advantage: estimatedScore >= quotaScore
+                    });
+                }
+            });
+
+            quotaSchools.sort((a, b) => b.quota - a.quota); // 按名额数量排序
+
+            let analysisHTML = `
+                <div style="background:#f8f9fa;padding:15px;border-radius:8px;margin-bottom:15px;">
+                    <h4 style="color:#2c3e50;margin-bottom:10px;">📋 名额分配政策解读</h4>
+                    <p><strong>适用条件：</strong>东莞户籍考生，第一批次第一志愿填报</p>
+                    <p><strong>分数要求：</strong>达到普高最低控制线（约530分），但低于目标校统招线</p>
+                    <p><strong>降分幅度：</strong>传统八大校降分20分，新增三校降分30分</p>
+                </div>
+            `;
+
+            if (quotaSchools.length > 0) {
+                analysisHTML += `<h4 style="color:#27ae60;">🎯 您的名额分配机会分析</h4>`;
+                
+                quotaSchools.forEach(school => {
+                    const statusClass = school.advantage ? 'success' : 'warning';
+                    const statusText = school.advantage ? '✅ 有机会通过名额分配录取' : '⚠️ 需要努力提升成绩';
+                    const bgColor = school.advantage ? '#d4edda' : '#fff3cd';
+                    
+                    analysisHTML += `
+                        <div style="background:${bgColor};border-radius:8px;padding:12px;margin:10px 0;border-left:4px solid ${school.advantage ? '#28a745' : '#ffc107'};">
+                            <h5 style="margin:0 0 8px 0;color:#2c3e50;">
+                                ${school.name} 
+                                ${school.isNew ? '<span style="color:#e74c3c;font-size:0.8em;">🆕新增校</span>' : ''}
+                            </h5>
+                            <p style="margin:5px 0;"><strong>统招分数线：</strong>${school.hujiScore}分</p>
+                            <p style="margin:5px 0;"><strong>名额分配预估线：</strong>${school.quotaScore}分 <span style="color:#666;">(降${school.hujiScore - school.quotaScore}分)</span></p>
+                            <p style="margin:5px 0;"><strong>名额分配计划：</strong>${school.quota}人</p>
+                            <p style="margin:5px 0;color:${school.advantage ? '#28a745' : '#856404'};"><strong>${statusText}</strong></p>
+                        </div>
+                    `;
+                });
+            } else {
+                analysisHTML += `
+                    <div style="background:#f8d7da;border-radius:8px;padding:15px;border-left:4px solid #dc3545;">
+                        <h4 style="color:#721c24;">当前成绩分析</h4>
+                        <p>根据您当前的成绩水平，建议：</p>
+                        <ul>
+                            <li>继续努力提升成绩，争取达到十一大校录取线</li>
+                            <li>关注新增三校（石龙、万江、常平中学），名额分配机会较大</li>
+                            <li>可考虑其他优质高中作为备选方案</li>
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // 添加填报策略建议
+            analysisHTML += `
+                <div style="background:#e3f2fd;border-radius:8px;padding:15px;margin-top:15px;border-left:4px solid #2196f3;">
+                    <h4 style="color:#1565c0;">💡 志愿填报策略建议</h4>
+                    <ol style="margin:10px 0;padding-left:20px;">
+                        <li><strong>第一志愿：</strong>选择最心仪且有名额分配机会的学校</li>
+                        <li><strong>梯度搭配：</strong>"冲刺-稳妥-保底"三个层次</li>
+                        <li><strong>新增校优势：</strong>石龙、万江、常平中学竞争相对较小</li>
+                        <li><strong>特色班关注：</strong>部分学校特色班可自主招生降分录取</li>
+                    </ol>
+                </div>
+            `;
+
+            container.innerHTML = analysisHTML;
+        }
+
         function generateDataTable(grade, semester) {
             const table = document.getElementById('dataTable');
-            const data = examData[grade][semester];
-
-            let html = `
+            
+            // 显示2025年十一大校录取数据
+            let tableHTML = `
                 <thead>
                     <tr>
-                        <th>考试类型</th>
-                        <th>得分率</th>
-                        <th>同比进步</th>
-                        <th>第一志愿推荐</th>
-                        <th>第二志愿推荐</th>
+                        <th>学校名称</th>
+                        <th>排名</th>
+                        <th>户籍生分数线</th>
+                        <th>随迁子女分数线</th>
+                        <th>名额分配计划</th>
+                        <th>学校特色</th>
+                        <th>备注</th>
                     </tr>
                 </thead>
                 <tbody>
             `;
 
-            Object.entries(data).forEach(([exam, info]) => {
-                html += `
+            Object.entries(elevenSchools).forEach(([school, data]) => {
+                const newSchoolBadge = data.isNew ? '<span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:3px;font-size:0.8em;">新增</span>' : '';
+                const levelColor = {
+                    '顶尖': '#8e44ad',
+                    '重点': '#3498db', 
+                    '优质': '#27ae60'
+                }[data.level] || '#95a5a6';
+                
+                tableHTML += `
                     <tr>
-                        <td>${exam}</td>
-                        <td>${info.rate}%</td>
-                        <td style="color: ${info.progress > 0 ? '#28a745' : '#dc3545'}">
-                            ${info.progress > 0 ? '+' : ''}${info.progress}%
+                        <td><strong>${school}</strong> ${newSchoolBadge}</td>
+                        <td style="text-align:center;">${data.rank}</td>
+                        <td style="text-align:center;font-weight:600;color:#2c3e50;">${data.hujiScore}分</td>
+                        <td style="text-align:center;color:#7f8c8d;">${data.suiqianScore}分</td>
+                        <td style="text-align:center;color:#27ae60;font-weight:600;">${data.quota}人</td>
+                        <td style="font-size:0.9em;">${data.features.slice(0,2).join('、')}</td>
+                        <td>
+                            <span style="background:${levelColor};color:white;padding:2px 6px;border-radius:3px;font-size:0.8em;">${data.level}</span>
+                            ${data.isNew ? '<br><small style="color:#e74c3c;">降分30分</small>' : '<small style="color:#7f8c8d;">降分20分</small>'}
                         </td>
-                        <td>${info.schools[0]}</td>
-                        <td>${info.schools[1]}</td>
                     </tr>
                 `;
             });
 
-            html += '</tbody>';
-            table.innerHTML = html;
+            tableHTML += '</tbody>';
+            table.innerHTML = tableHTML;
         }
         </script>
 </body>
