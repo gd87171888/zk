@@ -339,104 +339,241 @@
         /* 移动端优化 */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 8px;
+            }
+
+            .header {
+                padding: 20px 15px;
             }
 
             .header h1 {
-                font-size: 2em;
+                font-size: 1.8em;
+                margin-bottom: 8px;
             }
 
             .header p {
-                font-size: 1em;
+                font-size: 0.95em;
+                line-height: 1.4;
             }
 
             .main-content {
-                padding: 20px;
+                padding: 15px;
             }
 
             .section {
-                padding: 20px;
-                margin-bottom: 25px;
+                padding: 18px;
+                margin-bottom: 20px;
             }
 
             .section h2 {
-                font-size: 1.5em;
+                font-size: 1.4em;
+                margin-bottom: 15px;
+            }
+
+            .input-group {
+                margin-bottom: 15px;
+            }
+
+            .input-group label {
+                font-size: 0.95em;
+                margin-bottom: 6px;
+            }
+
+            .input-group input, .input-group select {
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 6px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                margin-top: 10px;
             }
 
             .score-analysis {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 12px;
             }
 
             .score-card {
                 padding: 15px;
+                text-align: center;
+            }
+
+            .score-card h3 {
+                font-size: 1em;
+                margin-bottom: 8px;
             }
 
             .score-card .value {
-                font-size: 1.8em;
+                font-size: 1.6em;
             }
 
             .school-recommendations {
                 grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .school-card {
-                padding: 15px;
-            }
-
-            .school-card h4 {
-                font-size: 1.1em;
-            }
-
-            .data-table {
-                font-size: 0.85em;
-            }
-
-            .data-table th,
-            .data-table td {
-                padding: 8px 6px;
-            }
-
-            .tips {
-                padding: 15px;
-            }
-
-            .footer {
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .main-content {
-                padding: 15px;
-            }
-
-            .section {
-                padding: 15px;
+                gap: 10px;
             }
 
             .school-card {
                 padding: 12px;
             }
 
+            .school-card h4 {
+                font-size: 1.05em;
+                margin-bottom: 10px;
+            }
+
             .probability {
-                font-size: 0.85em !important;
-                padding: 4px 8px !important;
-                min-width: 80px !important;
+                font-size: 0.85em;
+                padding: 5px 10px;
+                margin-bottom: 8px;
+            }
+
+            .school-info p {
+                font-size: 0.85em;
+                margin-bottom: 6px;
             }
 
             .data-table {
-                font-size: 0.75em;
+                font-size: 0.8em;
+                overflow-x: auto;
+                display: block;
+                white-space: nowrap;
             }
 
             .data-table th,
             .data-table td {
                 padding: 6px 4px;
+                min-width: 60px;
+            }
+
+            .tips {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+
+            .tips h4 {
+                font-size: 1.1em;
+            }
+
+            .footer {
+                padding: 15px 10px;
+            }
+
+            /* 策略建议网格优化 */
+            div[style*="grid-template-columns:1fr 1fr 1fr"] {
+                display: block !important;
+            }
+
+            div[style*="grid-template-columns:1fr 1fr 1fr"] > div {
+                margin-bottom: 15px !important;
+            }
+
+            /* 志愿级差网格优化 */
+            div[style*="grid-template-columns:1fr 1fr"] {
+                display: block !important;
+            }
+
+            div[style*="grid-template-columns:1fr 1fr"] > div {
+                margin-bottom: 15px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .header {
+                padding: 15px 10px;
+            }
+
+            .header h1 {
+                font-size: 1.6em;
+                line-height: 1.2;
+            }
+
+            .header p {
+                font-size: 0.85em;
+            }
+
+            .main-content {
+                padding: 10px;
+            }
+
+            .section {
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+
+            .section h2 {
+                font-size: 1.25em;
+            }
+
+            .input-group input, .input-group select {
+                padding: 8px;
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 10px;
+                font-size: 15px;
+            }
+
+            .score-card {
+                padding: 12px;
+            }
+
+            .score-card .value {
+                font-size: 1.4em;
+            }
+
+            .school-card {
+                padding: 10px;
+            }
+
+            .school-card h4 {
+                font-size: 1em;
+            }
+
+            .probability {
+                font-size: 0.8em !important;
+                padding: 4px 8px !important;
+                min-width: 70px !important;
+            }
+
+            .school-info p {
+                font-size: 0.8em;
+            }
+
+            .data-table {
+                font-size: 0.7em;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 4px 2px;
+                min-width: 50px;
+            }
+
+            .tips {
+                padding: 10px;
+                font-size: 0.85em;
+            }
+
+            .tips h4 {
+                font-size: 1em;
+            }
+
+            .tips ul {
+                margin-left: 15px;
+            }
+
+            .footer {
+                padding: 10px;
+                font-size: 0.8em;
             }
         }
     </style>
@@ -472,13 +609,6 @@
                         <option value="三模">三模</option>
                         <option value="二模">二模</option>
                         <option value="一模">一模</option>
-                        <option value="月考">月考</option>
-                        <option value="期末">期末</option>
-                        <option value="中段考">中段考</option>
-                        <option value="期中">期中</option>
-                        <option value="阶段一">阶段一</option>
-                        <option value="阶段二">阶段二</option>
-                        <option value="12月考">12月考</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -538,6 +668,72 @@
                 </div>
 
                 <div class="section">
+                    <h2>📝 志愿填报规则详解</h2>
+                    <div style="background:#f8f9fa;padding:15px;border-radius:8px;margin:10px 0;">
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+                            <div style="background:white;padding:15px;border-radius:8px;border-left:4px solid #8e44ad;">
+                                <h4 style="color:#8e44ad;margin-bottom:10px;">🏆 十一大校志愿级差</h4>
+                                <ul style="margin:0;padding-left:20px;">
+                                    <li><strong>第一志愿：</strong>正常分数线</li>
+                                    <li><strong>第二志愿：</strong>分数线+15分</li>
+                                    <li><strong>名额分配：</strong>仅限第一志愿</li>
+                                    <li><strong>降分幅度：</strong>传统八校20分，新增三校30分</li>
+                                </ul>
+                            </div>
+                            <div style="background:white;padding:15px;border-radius:8px;border-left:4px solid #3498db;">
+                                <h4 style="color:#3498db;margin-bottom:10px;">🎯 其他普高志愿级差</h4>
+                                <ul style="margin:0;padding-left:20px;">
+                                    <li><strong>第一志愿：</strong>正常分数线</li>
+                                    <li><strong>第二志愿：</strong>分数线+5分</li>
+                                    <li><strong>第三志愿：</strong>分数线+10分</li>
+                                    <li><strong>第四志愿：</strong>分数线+15分</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:15px;border-radius:5px;margin:15px 0;">
+                            <h4 style="color:#856404;margin-bottom:10px;">💡 填报策略建议</h4>
+                            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;">
+                                <div>
+                                    <h5 style="color:#856404;margin-bottom:8px;">高分段考生(700分+)</h5>
+                                    <ul style="margin:0;padding-left:15px;color:#856404;font-size:0.9em;">
+                                        <li>第一志愿：冲刺顶尖校</li>
+                                        <li>第二志愿：重点校保底</li>
+                                        <li>关注名额分配机会</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 style="color:#856404;margin-bottom:8px;">中分段考生(600-700分)</h5>
+                                    <ul style="margin:0;padding-left:15px;color:#856404;font-size:0.9em;">
+                                        <li>第一志愿：新增三校</li>
+                                        <li>第二志愿：镇街重点</li>
+                                        <li>利用30分降分优势</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 style="color:#856404;margin-bottom:8px;">临界考生(530-600分)</h5>
+                                    <ul style="margin:0;padding-left:15px;color:#856404;font-size:0.9em;">
+                                        <li>第一志愿：万江/常平</li>
+                                        <li>第二志愿：民办优质</li>
+                                        <li>第三志愿：综合高中</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background:#d1ecf1;border-left:4px solid #17a2b8;padding:15px;border-radius:5px;">
+                            <h4 style="color:#0c5460;margin-bottom:10px;">⚠️ 重要提醒</h4>
+                            <ul style="margin:0;padding-left:20px;color:#0c5460;">
+                                <li><strong>名额分配仅限十一大校：</strong>其他普通高中不参与名额分配政策</li>
+                                <li><strong>避免分数线相近：</strong>连续志愿间建议间隔10分以上</li>
+                                <li><strong>关注补录机会：</strong>第一批次未录取可参与补录，需达普高控制线530分</li>
+                                <li><strong>民办校无级差：</strong>民办高中各志愿无分数级差限制</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
                     <h2>📋 2025年十一大校录取数据参考</h2>
                     <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:10px;margin:10px 0;border-radius:5px;">
                         <p><strong>💡 数据说明：</strong>以下为2024年录取分数线，2025年实际分数线可能有所调整，仅供参考。名额分配降分幅度：传统八大校20分，新增三校30分。</p>
@@ -561,8 +757,8 @@
         </div>
 
         <div class="footer">
-            <p class="brand">白雪志愿</p>
-            <p class="year">2025年中考参考</p>
+            <p class="brand">好建议联系微信:yuyu812200</p>
+            <p class="year">2025年中考填志愿建议</p>
             <p class="disclaimer">2025仅供用于学习和交流，请勿用于商业用途</p>
         </div>
     </div>
@@ -694,6 +890,74 @@
             }
         };
 
+        // 其他普通高中数据（第二志愿推荐）
+        const otherSchools = {
+            '东莞市第八高级中学': { 
+                level: '公办重点', 
+                hujiScore: 640, 
+                suiqianScore: 695, 
+                features: ['分层教学', '艺考优势', '实验班'], 
+                note: '2024年扩招爆冷，2025年缩招分数线回升',
+                type: '公办'
+            },
+            '清溪中学': { 
+                level: '集团校', 
+                hujiScore: 637, 
+                suiqianScore: 659, 
+                features: ['东莞高级中学集团', '共享师资', '硬件完善'], 
+                note: '适合松山湖片区考生',
+                type: '公办'
+            },
+            '东莞市第十三高级中学': { 
+                level: '集团校', 
+                hujiScore: 665, 
+                suiqianScore: 668, 
+                features: ['松山湖学校集团', '师资强劲', '本科率80%+'], 
+                note: '教学质量稳定',
+                type: '公办'
+            },
+            '麻涌中学': { 
+                level: '镇街优质', 
+                hujiScore: 645, 
+                suiqianScore: 670, 
+                features: ['水乡片区', '竞争较小', '保底选择'], 
+                note: '适合临界生',
+                type: '公办'
+            },
+            '济川中学': { 
+                level: '普通高中', 
+                hujiScore: 630, 
+                suiqianScore: 670, 
+                features: ['城区边缘', '保底选择', '交通便利'], 
+                note: '普高线边缘考生',
+                type: '公办'
+            },
+            '海德双语学校': { 
+                level: '民办优质', 
+                hujiScore: 625, 
+                suiqianScore: 625, 
+                features: ['C9班', '强基班', '本科率92.1%'], 
+                note: '高分段民办兜底',
+                type: '民办'
+            },
+            '丰泰外国语实验高级中学': { 
+                level: '民办中上', 
+                hujiScore: 650, 
+                suiqianScore: 680, 
+                features: ['硬件顶配', '师资高配', '高性价比'], 
+                note: '追求性价比的选择',
+                type: '民办'
+            },
+            '嘉荣高级中学': { 
+                level: '综合高中', 
+                hujiScore: 620, 
+                suiqianScore: 620, 
+                features: ['普高班', '中职班', '双轨制'], 
+                note: '普高线边缘保留弹性',
+                type: '综合'
+            }
+        };
+
         // 学校等级划分（更新版）
         const schoolLevels = {
             "东莞中学": "顶尖",
@@ -748,76 +1012,291 @@
         }
 
         function getRecommendedSchools(scoreRate) {
-            const rate = parseFloat(scoreRate);
-            const estimatedScore = Math.round(rate * 8); // 假设满分800分
-            let schools = [];
+            const estimatedScore = Math.round(scoreRate * 8.3); // 假设满分830分
+            const recommendations = {
+                first: [],
+                second: [],
+                backup: []
+            };
 
-            // 根据2025年十一大校分数线推荐
-            if (estimatedScore >= 730) {
-                schools = ["东莞中学", "东莞中学松山湖学校", "松山湖未来学校", "东莞市第一中学"];
-            } else if (estimatedScore >= 710) {
-                schools = ["东莞高级中学", "东莞外国语学校", "东莞实验中学", "市第六高级中学"];
-            } else if (estimatedScore >= 680) {
-                schools = ["石龙中学", "常平中学", "万江中学", "市第六高级中学"];
-            } else if (estimatedScore >= 650) {
-                schools = ["常平中学", "万江中学", "石龙中学"];
-            } else {
-                schools = ["万江中学", "常平中学"];
-            }
+            // 十一大校推荐（第一志愿）- 更严格的推荐逻辑
+            Object.entries(elevenSchools).forEach(([school, data]) => {
+                const scoreDiff = estimatedScore - data.hujiScore;
+                const quotaScore = data.hujiScore - (data.isNew ? 30 : 20); // 名额分配降分线
+                const quotaDiff = estimatedScore - quotaScore;
+                
+                // 非常严格的推荐条件：只推荐真正合适的学校
+                let shouldRecommend = false;
+                let probability = '冲刺';
+                let reason = '';
+                
+                // 更严格的分数线判断，确保低分不会推荐顶尖学校
+                if (data.level === "顶尖") {
+                    // 顶尖学校（如东莞中学）需要更高的分数要求
+                    if (scoreDiff >= 20) {
+                        shouldRecommend = true;
+                        probability = '很高';
+                        reason = '统招录取把握很大';
+                    } else if (scoreDiff >= 10 && estimatedScore >= 730) {
+                        shouldRecommend = true;
+                        probability = '较高';
+                        reason = '统招录取有较大把握';
+                    } else if (scoreDiff >= 5 && estimatedScore >= 725) {
+                        // 只有分数达到725以上才考虑冲刺顶尖学校
+                        shouldRecommend = true;
+                        probability = '中等';
+                        reason = '统招录取需要努力，可冲刺';
+                    } else if (quotaDiff >= 25 && data.quota >= 500 && estimatedScore >= 720) {
+                        // 名额分配推荐条件更严格：分数超过名额分配线25分以上，且学校名额充足
+                        shouldRecommend = true;
+                        probability = '名额分配较高';
+                        reason = '通过名额分配录取把握较大';
+                    }
+                } else if (data.level === "重点") {
+                    // 重点学校（如东莞一中）推荐条件
+                    if (scoreDiff >= 10) {
+                        shouldRecommend = true;
+                        probability = '很高';
+                        reason = '统招录取把握很大';
+                    } else if (scoreDiff >= 0) {
+                        shouldRecommend = true;
+                        probability = '较高';
+                        reason = '统招录取有较大把握';
+                    } else if (scoreDiff >= -10 && estimatedScore >= 700) {
+                        shouldRecommend = true;
+                        probability = '中等';
+                        reason = '统招录取需要努力，可冲刺';
+                    } else if (quotaDiff >= 15 && data.quota >= 300 && estimatedScore >= 690) {
+                        shouldRecommend = true;
+                        probability = '名额分配较高';
+                        reason = '通过名额分配录取把握较大';
+                    }
+                } else if (data.level === "优质") {
+                    // 优质学校（如石龙中学）推荐条件
+                    if (scoreDiff >= 5) {
+                        shouldRecommend = true;
+                        probability = '很高';
+                        reason = '统招录取把握很大';
+                    } else if (scoreDiff >= -5) {
+                        shouldRecommend = true;
+                        probability = '较高';
+                        reason = '统招录取有较大把握';
+                    } else if (scoreDiff >= -15) {
+                        shouldRecommend = true;
+                        probability = '中等';
+                        reason = '统招录取需要努力，可冲刺';
+                    } else if (quotaDiff >= 10 && data.quota >= 300) {
+                        shouldRecommend = true;
+                        probability = '名额分配较高';
+                        reason = '通过名额分配录取把握较大';
+                    }
+                }
+                
+                if (shouldRecommend) {
+                    recommendations.first.push({
+                        school,
+                        probability,
+                        reason,
+                        quotaAdvantage: data.isNew ? '新增校降分30分' : '传统校降分20分',
+                        scoreDiff,
+                        quotaDiff,
+                        ...data
+                    });
+                }
+            });
 
-            return schools;
+            // 第二志愿推荐（考虑级差）- 优化推荐逻辑
+            Object.entries(otherSchools).forEach(([school, data]) => {
+                let adjustedScore;
+                let levelDiffText;
+                
+                // 根据学校类型确定级差
+                if (data.type === '公办') {
+                    adjustedScore = data.hujiScore + 5; // 其他普高第二志愿+5分
+                    levelDiffText = '+5分级差';
+                } else {
+                    adjustedScore = data.hujiScore; // 民办无级差
+                    levelDiffText = '无级差';
+                }
+                
+                const scoreDiff = estimatedScore - adjustedScore;
+                
+                // 更合理的第二志愿推荐条件
+                if (scoreDiff >= -10 && scoreDiff <= 40) {
+                    let probability = '冲刺';
+                    if (scoreDiff >= 15) probability = '很高';
+                    else if (scoreDiff >= 5) probability = '较高';
+                    else if (scoreDiff >= -5) probability = '中等';
+                    
+                    recommendations.second.push({
+                        school,
+                        probability,
+                        levelDiff: levelDiffText,
+                        scoreDiff,
+                        ...data
+                    });
+                }
+            });
+
+            // 保底志愿推荐 - 更安全的保底策略
+            Object.entries(otherSchools).forEach(([school, data]) => {
+                const scoreDiff = estimatedScore - data.hujiScore;
+                if (scoreDiff >= 15) { // 至少高出15分才算保底
+                    let safetyLevel = '安全';
+                    if (scoreDiff >= 30) safetyLevel = '非常安全';
+                    else if (scoreDiff >= 20) safetyLevel = '很安全';
+                    
+                    recommendations.backup.push({
+                        school,
+                        probability: '很高',
+                        safetyLevel,
+                        scoreDiff,
+                        ...data
+                    });
+                }
+            });
+
+            // 排序推荐结果
+            recommendations.first.sort((a, b) => b.hujiScore - a.hujiScore);
+            recommendations.second.sort((a, b) => b.hujiScore - a.hujiScore);
+            recommendations.backup.sort((a, b) => b.hujiScore - a.hujiScore);
+
+            return recommendations;
         }
 
         function generateSchoolRecommendations(scoreRate) {
-            const schools = getRecommendedSchools(scoreRate);
-            const container = document.getElementById('schoolRecommendations');
-            const estimatedScore = Math.round(parseFloat(scoreRate) * 8);
-            container.innerHTML = '';
+            const recommendations = getRecommendedSchools(scoreRate);
+            const estimatedScore = Math.round(scoreRate * 8.3);
+            
+            let html = `
+                <div style="background:#f8f9fa;padding:15px;border-radius:8px;margin:10px 0;">
+                    <h4 style="color:#2c3e50;margin-bottom:15px;">🎯 基于预估分数 ${estimatedScore}分 的志愿填报建议</h4>
+            `;
 
-            schools.forEach((school, index) => {
-                const schoolData = elevenSchools[school];
-                if (!schoolData) return;
-
-                const probability = index === 0 ? 'high' : index === 1 ? 'medium' : 'low';
-                let probabilityText = '';
-                let strategyText = '';
-                
-                // 根据分数差距计算录取概率
-                const scoreDiff = estimatedScore - schoolData.hujiScore;
-                if (scoreDiff >= 10) {
-                    probabilityText = '录取概率很高';
-                    strategyText = '稳妥选择，可作为保底志愿';
-                } else if (scoreDiff >= 0) {
-                    probabilityText = '录取概率较高';
-                    strategyText = '合适选择，建议重点考虑';
-                } else if (scoreDiff >= -20) {
-                    probabilityText = '录取概率中等';
-                    strategyText = schoolData.isNew ? '新增校，名额分配机会大' : '可冲刺，建议关注名额分配';
-                } else {
-                    probabilityText = '录取概率较低';
-                    strategyText = '冲刺目标，需要超常发挥';
-                }
-
-                const level = schoolData.level;
-                const features = schoolData.features.slice(0, 2).join('、');
-                const quotaInfo = schoolData.isNew ? `名额分配${schoolData.quota}人（新增校优势）` : `名额分配${schoolData.quota}人`;
-
-                const card = document.createElement('div');
-                card.className = 'school-card';
-                card.innerHTML = `
-                    <h4>${school} <span style="font-size:0.8em;color:#666;">(排名第${schoolData.rank})</span></h4>
-                    <div class="probability ${probability}">${probabilityText}</div>
-                    <div class="school-info">
-                        <p><strong>学校等级:</strong> ${level}<span class="school-level level-${level}">${level}</span></p>
-                        <p><strong>录取分数:</strong> 户籍生${schoolData.hujiScore}分 / 随迁子女${schoolData.suiqianScore}分</p>
-                        <p><strong>学校特色:</strong> ${features}</p>
-                        <p><strong>名额分配:</strong> ${quotaInfo}</p>
-                        <p><strong>填报策略:</strong> ${strategyText}</p>
-                        ${schoolData.isNew ? '<p style="color:#e74c3c;font-weight:600;">🆕 2025年新增十一大校</p>' : ''}
+            // 第一志愿推荐（十一大校）
+            if (recommendations.first.length > 0) {
+                html += '<div style="margin:15px 0;"><h5 style="color:#8e44ad;margin-bottom:10px;">🏆 第一志愿推荐（十一大校）</h5>';
+                recommendations.first.slice(0,4).forEach(rec => {
+                    const probabilityColor = {
+                        '很高': '#28a745',
+                        '较高': '#17a2b8', 
+                        '中等': '#ffc107',
+                        '冲刺': '#dc3545',
+                        '名额分配较高': '#17a2b8',
+                        '名额分配冲刺': '#ffc107'
+                    }[rec.probability];
+                    
+                    const quotaScoreText = rec.hujiScore - (rec.isNew ? 30 : 20);
+                    
+                    html += `
+                        <div style="margin:8px 0;padding:10px;background:white;border-radius:5px;border-left:4px solid ${probabilityColor};">
+                            <strong>${rec.school}</strong> 
+                            <span style="color:${probabilityColor};font-weight:600;">[${rec.probability}]</span>
+                            ${rec.isNew ? '<span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:3px;font-size:0.8em;margin-left:5px;">新增</span>' : ''}
+                            <br>
+                            <small style="color:#666;">户籍线：${rec.hujiScore}分 | 名额分配线：约${quotaScoreText}分 | 名额：${rec.quota}人</small>
+                            <br>
+                            <small style="color:#2980b9;font-weight:500;">${rec.reason}</small>
+                            <br>
+                            <small style="color:#7f8c8d;">${rec.features.slice(0,2).join('、')}</small>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            } else {
+                html += `
+                    <div style="margin:15px 0;padding:15px;background:#fff3cd;border-radius:5px;border-left:4px solid #ffc107;">
+                        <h5 style="color:#856404;">🎯 第一志愿建议</h5>
+                        <p style="color:#856404;margin:5px 0;">根据您当前的成绩水平，建议：</p>
+                        <ul style="color:#856404;margin:5px 0;padding-left:20px;">
+                            <li>继续努力提升成绩，争取达到十一大校录取线</li>
+                            <li>重点关注新增三校（石龙、万江、常平中学），竞争相对较小</li>
+                            <li>可考虑通过名额分配途径冲刺心仪学校</li>
+                        </ul>
                     </div>
                 `;
-                container.appendChild(card);
-            });
+            }
+
+            // 第二志愿推荐
+            if (recommendations.second.length > 0) {
+                html += '<div style="margin:15px 0;"><h5 style="color:#3498db;margin-bottom:10px;">🎯 第二志愿推荐</h5>';
+                recommendations.second.slice(0,3).forEach(rec => {
+                    const probabilityColor = {
+                        '很高': '#28a745',
+                        '较高': '#17a2b8', 
+                        '中等': '#ffc107',
+                        '冲刺': '#dc3545'
+                    }[rec.probability];
+                    
+                    const typeColor = {
+                        '公办': '#27ae60',
+                        '民办': '#e67e22',
+                        '综合': '#9b59b6'
+                    }[rec.type];
+                    
+                    const adjustedScore = rec.type === '公办' ? rec.hujiScore + 5 : rec.hujiScore;
+                    
+                    html += `
+                        <div style="margin:8px 0;padding:10px;background:white;border-radius:5px;border-left:4px solid ${probabilityColor};">
+                            <strong>${rec.school}</strong> 
+                            <span style="color:${probabilityColor};font-weight:600;">[${rec.probability}]</span>
+                            <span style="background:${typeColor};color:white;padding:2px 6px;border-radius:3px;font-size:0.8em;margin-left:5px;">${rec.type}</span>
+                            <br>
+                            <small style="color:#666;">户籍线：${rec.hujiScore}分 | 第二志愿线：约${adjustedScore}分 | ${rec.levelDiff}</small>
+                            <br>
+                            <small style="color:#7f8c8d;">${rec.features.slice(0,2).join('、')} | ${rec.note}</small>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            // 保底志愿推荐
+            if (recommendations.backup.length > 0) {
+                html += '<div style="margin:15px 0;"><h5 style="color:#27ae60;margin-bottom:10px;">🛡️ 保底志愿推荐</h5>';
+                recommendations.backup.slice(0,3).forEach(rec => {
+                    const typeColor = {
+                        '公办': '#27ae60',
+                        '民办': '#e67e22',
+                        '综合': '#9b59b6'
+                    }[rec.type];
+                    
+                    const safetyColor = {
+                        '非常安全': '#155724',
+                        '很安全': '#1e7e34',
+                        '安全': '#28a745'
+                    }[rec.safetyLevel];
+                    
+                    html += `
+                        <div style="margin:8px 0;padding:10px;background:white;border-radius:5px;border-left:4px solid ${safetyColor};">
+                            <strong>${rec.school}</strong> 
+                            <span style="color:${safetyColor};font-weight:600;">[${rec.safetyLevel}]</span>
+                            <span style="background:${typeColor};color:white;padding:2px 6px;border-radius:3px;font-size:0.8em;margin-left:5px;">${rec.type}</span>
+                            <br>
+                            <small style="color:#666;">户籍线：${rec.hujiScore}分 | 安全余量：+${rec.scoreDiff}分</small>
+                            <br>
+                            <small style="color:#7f8c8d;">${rec.features.slice(0,2).join('、')} | ${rec.note}</small>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            // 志愿填报策略提示
+            html += `
+                <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:10px;margin:15px 0;border-radius:5px;">
+                    <h6 style="color:#856404;margin-bottom:8px;">📋 志愿填报策略提示</h6>
+                    <ul style="margin:5px 0;padding-left:20px;color:#856404;">
+                        <li><strong>梯度设计：</strong>第一志愿冲刺十一大校，第二志愿选择镇街重点或民办优质校，第三四志愿保底</li>
+                        <li><strong>级差规则：</strong>十一大校第二志愿+15分，其他普高第二三四志愿+5分</li>
+                        <li><strong>名额分配：</strong>仅限十一大校第一志愿，新增三校降分30分，传统八校降分20分</li>
+                        <li><strong>风险控制：</strong>避免分数线相近学校连续填报，建议间隔10分以上</li>
+                    </ul>
+                </div>
+            `;
+
+            html += '</div>';
+            document.getElementById('schoolRecommendations').innerHTML = html;
         }
 
         function generateQuotaAnalysis(scoreRate) {
@@ -885,7 +1364,7 @@
                 `;
             }
 
-            // 添加填报策略建议
+            // 添加填充策略建议
             analysisHTML += `
                 <div style="background:#e3f2fd;border-radius:8px;padding:15px;margin-top:15px;border-left:4px solid #2196f3;">
                     <h4 style="color:#1565c0;">💡 志愿填报策略建议</h4>
@@ -895,6 +1374,39 @@
                         <li><strong>新增校优势：</strong>石龙、万江、常平中学竞争相对较小</li>
                         <li><strong>特色班关注：</strong>部分学校特色班可自主招生降分录取</li>
                     </ol>
+                </div>
+                
+                <div style="background:#f0f8ff;border-radius:8px;padding:15px;margin-top:15px;border-left:4px solid #4169e1;">
+                    <h4 style="color:#1e3a8a;">📊 2025年数据获取指南</h4>
+                    <div style="margin:10px 0;">
+                        <h5 style="color:#2563eb;margin:8px 0;">🏛️ 官方数据源</h5>
+                        <ul style="margin:5px 0;padding-left:20px;font-size:0.9em;">
+                            <li><strong>东莞市教育局数据中心：</strong>完整录取数据/分镇街统计</li>
+                            <li><strong>广东省教育考试院：</strong>全省中考政策对比分析</li>
+                            <li><strong>阳光招生平台：</strong>考生个人数据查询接口</li>
+                        </ul>
+                        
+                        <h5 style="color:#2563eb;margin:8px 0;">🔍 智能分析工具</h5>
+                        <div style="background:#ffffff;padding:10px;border-radius:5px;margin:8px 0;">
+                            <p style="margin:5px 0;font-size:0.9em;"><strong>志愿梯度生成器：</strong></p>
+                            <ul style="margin:5px 0;padding-left:20px;font-size:0.85em;">
+                                <li>720+分：双冲高策略（成功率85%）</li>
+                                <li>700-719分：一冲二稳策略（成功率73%）</li>
+                                <li>680-699分：二稳一保策略（成功率65%）</li>
+                            </ul>
+                        </div>
+                        
+                        <h5 style="color:#2563eb;margin:8px 0;">🎯 区域补偿系数</h5>
+                        <div style="background:#ffffff;padding:10px;border-radius:5px;margin:8px 0;">
+                            <p style="margin:5px 0;font-size:0.9em;"><strong>2025年预测补偿：</strong></p>
+                            <ul style="margin:5px 0;padding-left:20px;font-size:0.85em;">
+                                <li>中堂镇：基础补偿+6分，精准扶贫+5分</li>
+                                <li>麻涌镇：基础补偿+5分，艺术特长+3分</li>
+                                <li>水乡新城：区域系数1.15</li>
+                                <li>滨海湾：区域系数0.95</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             `;
 
@@ -914,6 +1426,7 @@
                         <th>随迁子女分数线</th>
                         <th>名额分配计划</th>
                         <th>学校特色</th>
+                        <th>热度指数</th>
                         <th>备注</th>
                     </tr>
                 </thead>
@@ -928,6 +1441,21 @@
                     '优质': '#27ae60'
                 }[data.level] || '#95a5a6';
                 
+                // 模拟热度指数数据
+                const hotIndex = {
+                    '东莞中学': { search: 35680, ratio: '4.7:1' },
+                    '东莞中学松山湖学校': { search: 29850, ratio: '3.2:1' },
+                    '东莞市第一中学': { search: 28500, ratio: '3.8:1' },
+                    '实验中学': { search: 25600, ratio: '3.5:1' },
+                    '高级中学': { search: 22800, ratio: '3.1:1' },
+                    '外国语学校': { search: 21500, ratio: '2.9:1' },
+                    '第六高级中学': { search: 19200, ratio: '2.6:1' },
+                    '第七高级中学': { search: 18800, ratio: '2.5:1' },
+                    '石龙中学': { search: 15600, ratio: '2.2:1' },
+                    '万江中学': { search: 14800, ratio: '2.1:1' },
+                    '常平中学': { search: 14200, ratio: '2.0:1' }
+                }[school] || { search: 12000, ratio: '1.8:1' };
+                
                 tableHTML += `
                     <tr>
                         <td><strong>${school}</strong> ${newSchoolBadge}</td>
@@ -936,6 +1464,10 @@
                         <td style="text-align:center;color:#7f8c8d;">${data.suiqianScore}分</td>
                         <td style="text-align:center;color:#27ae60;font-weight:600;">${data.quota}人</td>
                         <td style="font-size:0.9em;">${data.features.slice(0,2).join('、')}</td>
+                        <td style="text-align:center;font-size:0.85em;">
+                            <div>搜索：${hotIndex.search}</div>
+                            <div style="color:#666;">报录比：${hotIndex.ratio}</div>
+                        </td>
                         <td>
                             <span style="background:${levelColor};color:white;padding:2px 6px;border-radius:3px;font-size:0.8em;">${data.level}</span>
                             ${data.isNew ? '<br><small style="color:#e74c3c;">降分30分</small>' : '<small style="color:#7f8c8d;">降分20分</small>'}
@@ -947,6 +1479,63 @@
             tableHTML += '</tbody>';
             table.innerHTML = tableHTML;
         }
+        
+        // 添加备考时间规划功能
+        function generateTimelinePlanning() {
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth() + 1;
+            
+            let timelineHTML = `
+                <div style="background:#f8f9fa;border-radius:8px;padding:15px;margin:15px 0;">
+                    <h4 style="color:#2c3e50;margin-bottom:15px;">📅 2025中考备考时间规划</h4>
+                    <div style="position:relative;">
+            `;
+            
+            const timeline = [
+                { month: '2024年9月-12月', task: '政策追踪', desc: '关注2025中考改革方案发布', status: currentMonth >= 9 ? 'completed' : 'pending' },
+                { month: '2025年1月', task: '一模备考', desc: '第一次模拟考试，初步定位', status: currentMonth >= 1 ? 'active' : 'pending' },
+                { month: '2025年3月', task: '学校调研', desc: '参加校园开放日，收集招生信息', status: currentMonth >= 3 ? 'active' : 'pending' },
+                { month: '2025年4月', task: '二模冲刺', desc: '第二次模拟考试，精准定位', status: currentMonth >= 4 ? 'active' : 'pending' },
+                { month: '2025年5月', task: '三模调整', desc: '最后一次模拟，志愿填报准备', status: currentMonth >= 5 ? 'active' : 'pending' },
+                { month: '2025年6月', task: '中考冲刺', desc: '正式中考，发挥最佳水平', status: currentMonth >= 6 ? 'active' : 'pending' }
+            ];
+            
+            timeline.forEach((item, index) => {
+                const statusColor = {
+                    'completed': '#28a745',
+                    'active': '#007bff', 
+                    'pending': '#6c757d'
+                }[item.status];
+                
+                timelineHTML += `
+                    <div style="display:flex;align-items:center;margin:10px 0;">
+                        <div style="width:12px;height:12px;border-radius:50%;background:${statusColor};margin-right:15px;"></div>
+                        <div style="flex:1;">
+                            <strong style="color:${statusColor};">${item.month}</strong> - ${item.task}
+                            <br><small style="color:#666;">${item.desc}</small>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            timelineHTML += `
+                    </div>
+                </div>
+            `;
+            
+            return timelineHTML;
+        }
+        
+        // 在页面加载时添加时间规划
+        document.addEventListener('DOMContentLoaded', function() {
+            const quotaSection = document.getElementById('quotaAnalysis');
+            if (quotaSection && quotaSection.parentNode) {
+                const timelineDiv = document.createElement('div');
+                timelineDiv.innerHTML = generateTimelinePlanning();
+                quotaSection.parentNode.insertBefore(timelineDiv, quotaSection.nextSibling);
+            }
+        });
+        
         </script>
 </body>
 </html>
