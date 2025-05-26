@@ -151,38 +151,112 @@
 
         .school-recommendations {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
         }
 
         .school-card {
             background: white;
             border: 2px solid #e9ecef;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 20px;
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .school-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
         }
 
         .school-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
         }
 
         .school-card h4 {
-            color: #4facfe;
-            margin-bottom: 10px;
-            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1.25em;
+            font-weight: 600;
         }
 
         .school-card .probability {
-            font-size: 1.1em;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 0.95em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            text-align: center;
+            min-width: 100px;
         }
 
-        .probability.high { color: #28a745; }
-        .probability.medium { color: #ffc107; }
-        .probability.low { color: #dc3545; }
+        .probability.high { 
+            color: #fff;
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        .probability.medium { 
+            color: #fff;
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+        .probability.low { 
+            color: #fff;
+            background: linear-gradient(135deg, #dc3545, #e83e8c);
+        }
+
+        .school-info {
+            margin-top: 15px;
+        }
+
+        .school-info p {
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        .school-info strong {
+            color: #495057;
+        }
+
+        .school-level {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
+        .level-顶尖 {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .level-重点 {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .level-优质 {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .level-普通 {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
 
         .data-table {
             width: 100%;
@@ -231,13 +305,147 @@
             margin-bottom: 8px;
             color: #333;
         }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .footer .brand {
+            font-weight: 600;
+            color: #4facfe;
+        }
+
+        .footer .year {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .footer .disclaimer {
+            font-size: 0.8em;
+            color: #868e96;
+            margin-top: 10px;
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .section {
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+
+            .section h2 {
+                font-size: 1.5em;
+            }
+
+            .score-analysis {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .score-card {
+                padding: 15px;
+            }
+
+            .score-card .value {
+                font-size: 1.8em;
+            }
+
+            .school-recommendations {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .school-card {
+                padding: 15px;
+            }
+
+            .school-card h4 {
+                font-size: 1.1em;
+            }
+
+            .data-table {
+                font-size: 0.85em;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 8px 6px;
+            }
+
+            .tips {
+                padding: 15px;
+            }
+
+            .footer {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .school-card {
+                padding: 12px;
+            }
+
+            .probability {
+                font-size: 0.85em !important;
+                padding: 4px 8px !important;
+                min-width: 80px !important;
+            }
+
+            .data-table {
+                font-size: 0.75em;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 6px 4px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>🎓 东莞中考分析工具</h1>
-            <p>专业的中考成绩分析与志愿填报白雪指导</p>
+            <p>专业的中考成绩分析与志愿填报指导</p>
         </div>
 
         <div class="main-content">
@@ -331,6 +539,12 @@
                     </ul>
                 </div>
             </div>
+        </div>
+
+        <div class="footer">
+            <p class="brand">白雪志愿</p>
+            <p class="year">2025年中考参考</p>
+            <p class="disclaimer">2025仅供用于学习和交流，请勿用于商业用途</p>
         </div>
     </div>
 
@@ -449,8 +663,11 @@
                 card.innerHTML = `
                     <h4>${school}</h4>
                     <div class="probability ${probability}">${probabilityText}</div>
-                    <p><strong>学校等级:</strong> ${level}</p>
-                    <p><strong>建议:</strong> ${index === 0 ? '第一志愿推荐' : index === 1 ? '第二志愿推荐' : '保底志愿推荐'}</p>
+                    <div class="school-info">
+                        <p><strong>学校等级:</strong> ${level}<span class="school-level level-${level}">${level}</span></p>
+                        <p><strong>志愿建议:</strong> ${index === 0 ? '第一志愿推荐' : index === 1 ? '第二志愿推荐' : '保底志愿推荐'}</p>
+                        <p><strong>录取建议:</strong> ${index === 0 ? '冲刺目标，全力以赴' : index === 1 ? '稳妥选择，把握机会' : '安全保底，确保录取'}</p>
+                    </div>
                 `;
                 container.appendChild(card);
             });
