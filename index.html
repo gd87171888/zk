@@ -762,6 +762,62 @@
             </div>
         </div>
 
+        <div class="student-scores-section" style="margin-top: 30px; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
+            <h2 style="text-align: center; color: #333; margin-bottom: 20px;">📢 同学成绩分享与统计</h2>
+            
+            <div class="score-input-form" style="margin-bottom: 30px; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h3 style="color: #555; margin-bottom: 15px;">✏️ 填写你的模考成绩</h3>
+                <div class="input-group">
+                    <label for="studentNickname">昵称:</label>
+                    <input type="text" id="studentNickname" placeholder="请输入你的昵称">
+                </div>
+                <div class="input-group">
+                    <label for="studentSchool">学校:</label>
+                    <select id="studentSchool">
+                        <option value="海德学校">海德学校</option>
+                        <option value="樟木头中学">樟木头中学</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="mockExam1Score">一模总分:</label>
+                    <input type="number" id="mockExam1Score" placeholder="请输入一模总分" min="0" max="800">
+                </div>
+                <div class="input-group">
+                    <label for="mockExam2Score">二模总分:</label>
+                    <input type="number" id="mockExam2Score" placeholder="请输入二模总分" min="0" max="800">
+                </div>
+                <button class="btn" onclick="submitStudentScore()" style="background-color: #28a745; border-color: #28a745;">✅ 提交成绩</button>
+            </div>
+
+            <div class="scores-display" style="padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h3 style="color: #555; margin-bottom: 15px;">📊 成绩排行榜与统计</h3>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">（折算总分 = 一模 * 0.4 + 二模 * 0.6，排名按折算总分从高到低）</p>
+                <table class="data-table" id="studentScoresTable" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>昵称</th>
+                            <th>学校</th>
+                            <th>一模</th>
+                            <th>二模</th>
+                            <th>折算总分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 学生成绩将在这里动态生成 -->
+                    </tbody>
+                </table>
+                <div id="scoreStats" style="margin-top: 20px; font-size: 0.95em;">
+                    <!-- 统计数据将在这里显示 -->
+                </div>
+            </div>
+            <!-- <div id="scoreChartContainer" style="margin-top: 30px; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h3 style="color: #555; margin-bottom: 15px;">📈 成绩可视化</h3>
+                <canvas id="scoreChart" width="400" height="200"></canvas>
+            </div> -->
+        </div>
+
         <div class="footer">
             <p class="brand">好建议联系微信:yuyu812200</p>
             <p class="year">2025年中考填志愿建议</p>
@@ -1568,5 +1624,187 @@
         });
         
         </script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script>
+        const STUDENT_SCORES_KEY = 'dongguanStudentScores_v2';
+
+        function submitStudentScore() {
+            const nickname = document.getElementById('studentNickname').value.trim();
+            const school = document.getElementById('studentSchool').value;
+            const mock1Score = parseFloat(document.getElementById('mockExam1Score').value);
+            const mock2Score = parseFloat(document.getElementById('mockExam2Score').value);
+
+            if (!nickname) {
+                alert('请输入昵称！');
+                return;
+            }
+            if (isNaN(mock1Score) || mock1Score < 0 || mock1Score > 800 || isNaN(mock2Score) || mock2Score < 0 || mock2Score > 800) {
+                alert('请输入有效的一模和二模分数（0-800之间）！');
+                return;
+            }
+
+            const studentData = {
+                nickname,
+                school,
+                mock1Score,
+                mock2Score,
+                timestamp: new Date().toISOString()
+            };
+
+            let scores = JSON.parse(localStorage.getItem(STUDENT_SCORES_KEY)) || [];
+            scores.push(studentData);
+            localStorage.setItem(STUDENT_SCORES_KEY, JSON.stringify(scores));
+
+            document.getElementById('studentNickname').value = '';
+            document.getElementById('mockExam1Score').value = '';
+            document.getElementById('mockExam2Score').value = '';
+            alert('成绩提交成功！');
+            displayStudentScores();
+        }
+
+        function calculateWeightedScore(mock1, mock2) {
+            // 简单折算规则：一模占40%，二模占60%
+            return (mock1 * 0.4 + mock2 * 0.6).toFixed(2);
+        }
+
+        let scoreChartInstance = null; // 用于存储Chart实例
+
+        function displayStudentScores() {
+            const scores = JSON.parse(localStorage.getItem(STUDENT_SCORES_KEY)) || [];
+            const tableBody = document.getElementById('studentScoresTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // 清空现有表格
+
+            if (scores.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:10px;color:#888;">暂无成绩数据，快来分享你的分数吧！</td></tr>';
+                document.getElementById('scoreStats').innerHTML = '';
+                if (scoreChartInstance) {
+                    scoreChartInstance.destroy();
+                    scoreChartInstance = null;
+                 }
+                 // const chartContainer = document.getElementById('scoreChartContainer');
+                 // if (chartContainer) chartContainer.style.display = 'none';
+                return;
+            }
+
+            const processedScores = scores.map(s => ({
+                ...s,
+                weightedScore: parseFloat(calculateWeightedScore(s.mock1Score, s.mock2Score))
+            })); 
+
+            processedScores.sort((a, b) => b.weightedScore - a.weightedScore);
+
+            processedScores.forEach((score, index) => {
+                const row = tableBody.insertRow();
+                row.insertCell().textContent = index + 1;
+                row.insertCell().textContent = score.nickname;
+                row.insertCell().textContent = score.school;
+                row.insertCell().textContent = score.mock1Score;
+                row.insertCell().textContent = score.mock2Score;
+                row.insertCell().textContent = score.weightedScore;
+            });
+
+            // 统计信息
+            const statsContainer = document.getElementById('scoreStats');
+            const totalEntries = processedScores.length;
+            const avgMock1 = (processedScores.reduce((sum, s) => sum + s.mock1Score, 0) / totalEntries).toFixed(2);
+            const avgMock2 = (processedScores.reduce((sum, s) => sum + s.mock2Score, 0) / totalEntries).toFixed(2);
+            const avgWeighted = (processedScores.reduce((sum, s) => sum + s.weightedScore, 0) / totalEntries).toFixed(2);
+            
+            statsContainer.innerHTML = `
+                <p><strong>总参与人数：</strong>${totalEntries}人</p>
+                <p><strong>平均一模成绩：</strong>${avgMock1}分</p>
+                <p><strong>平均二模成绩：</strong>${avgMock2}分</p>
+                <p><strong>平均折算总分：</strong>${avgWeighted}分</p>
+            `;
+
+            // 可视化图表 (已注释掉)
+            /*
+            const chartContainer = document.getElementById('scoreChartContainer');
+            if (chartContainer) { // 检查元素是否存在
+                const ctx = document.getElementById('scoreChart').getContext('2d');
+                
+                if (scoreChartInstance) {
+                    scoreChartInstance.destroy(); // 销毁旧图表实例
+                }
+
+                // Filter scores for chart: only include scores >= 600
+                const chartScores = processedScores.filter(s => s.weightedScore >= 600);
+
+                const labels = chartScores.map(s => s.nickname);
+                const weightedScoresData = chartScores.map(s => s.weightedScore);
+                const topN = 10; // 显示前10名
+
+                if (labels.length > 0) { // 只有在有数据时才创建图表
+                    scoreChartInstance = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels.slice(0, topN),
+                            datasets: [{
+                                label: '折算总分 (600+)',
+                                data: weightedScoresData.slice(0, topN),
+                                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: '分数'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: `学生昵称 (Top ${topN})`
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'top',
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            let label = context.dataset.label || '';
+                                            if (label) {
+                                                label += ': ';
+                                            }
+                                            if (context.parsed.y !== null) {
+                                                label += context.parsed.y + '分';
+                                            }
+                                            // 注意：这里的 originalData 查找逻辑可能需要调整，因为 chartScores 是过滤后的
+                                            const originalData = processedScores.find(s => s.nickname === context.label && s.weightedScore >= 600);
+                                            if (originalData) {
+                                                label += ` (一模: ${originalData.mock1Score}, 二模: ${originalData.mock2Score})`;
+                                            }
+                                            return label;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    chartContainer.style.display = 'block';
+                } else {
+                    chartContainer.style.display = 'none'; // 如果没有符合条件的数据，则隐藏图表容器
+                }
+            } else if (scoreChartInstance) { // 如果容器不存在但实例存在，销毁实例
+                 scoreChartInstance.destroy();
+                 scoreChartInstance = null;
+            }
+            */
+        }
+
+        // 页面加载时显示已存储的成绩
+        document.addEventListener('DOMContentLoaded', displayStudentScores);
+    </script>
 </body>
 </html>
